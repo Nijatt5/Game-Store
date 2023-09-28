@@ -1,0 +1,142 @@
+﻿@using System.Security.Claims;
+@using shoping.Models
+@model List<Product>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameStore</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <section class="main">
+        <nav>
+            <i class="fa-solid fa-bars"></i>
+            <div class="logo"><img src="/img/GameLogo.jpg" alt=""></div>
+            <div class="media-search">
+                <input type="search" placeholder="Search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="items">
+                <div class="search">
+                    <input type="search" placeholder="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/Home/Index" class="ad">@User.FindFirst(ClaimTypes.Name).Value</a>
+                    <a href="/User/Logout" class="login">Logout</a>
+                    <a href="/User/Loglist" class="login">Log list</a>
+                    <a href="/User/Products/@User.FindFirst(ClaimTypes.Sid).Value" class="login">My Products</a>
+                    <a href="/Home/Unconfirmed" class="login">Unconfirmed</a>
+                    <a href="/Home/Basket" class="shop">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <div class="count">@ViewBag.say</div>
+                    </a>
+                }
+                else
+                {
+                    <a href="/User/Signup" class="sign">Sign up</a>
+                    <a href="/User/Login" class="login">Login</a>
+                }
+            </div>
+        </nav>
+        <div class="intro">
+        </div>
+        <div class="products">
+            <div class="special">
+                <div class="up"><b>Our Products</b></div>
+                <div class="down">
+                    <div class="category">
+                        <div class="left">
+                            <p>Bestseller</p>
+                        </div>
+                        <div class="right">
+                            <p>Newest</p>
+                        </div>
+                    </div>
+                    <form class="filter" action="/Home/Filter">
+                        <input type="search" placeholder="Name" class="name" name="name">
+                        <div class="qiymet">
+                            <input type="search" placeholder="Salary, min" class="min" name="minsalary">
+                            <input type="search" placeholder="Max" class="max" name="minsalary">
+                        </div>
+                        <select name="valute">
+                            <option value="">AZN</option>
+                            <option value="">USD</option>
+                            <option value="">EUR</option>
+                        </select>
+                        <button>Search</button>
+                    </form>
+                    <a href="/Home/Add">+ <p>Add</p></a>
+                </div>
+            </div>
+            <div class="games">
+                @foreach (var item in Model)
+                {
+                    <div class="item">
+                        <div class="image">
+                            <img src="/img/@item.ProductImg" alt="">
+                        </div>
+                        <p class="gamekind">Games <i class="fa-solid fa-circle"></i>Xbox One</p>
+                        <div class="gamename">
+                            <p class="game-text"><b>@item.ProductName</b></p>
+                            <p class="gamesalary"><b>$@item.ProductSalary</b></p>
+                            <div class="heart">
+                                <i class="fa-regular fa-heart"></i>
+
+                            </div>
+                        </div>
+                        <div class="more">
+                            <ul class="more2">
+                                    <li><a href="/Home/Readmore/@item.ProductId" class="readmore">Read More</a></li>
+                                    <li><a href="/Home/Edit/@item.ProductId" class="edit"><i class="fa-solid fa-pen-to-square"></i></a></li>
+                                    <li><a href="/Home/Remove/@item.ProductId" class="remove"><i class="fa-solid fa-trash"></i></a></li>
+                            </ul>
+                                <div class="container">
+                                    <form action="/Home/Basket/@item.ProductId" method="post">
+                                        <button class="add-to-cart-button">
+                                            <svg class="add-to-cart-box box-1" width="24" height="24" viewBox="0 0 24 24"
+                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="24" height="24" rx="2" fill="#ffffff" />
+                                            </svg>
+                                            <svg class="add-to-cart-box box-2" width="24" height="24" viewBox="0 0 24 24"
+                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="24" height="24" rx="2" fill="#ffffff" />
+                                            </svg>
+                                            <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"
+                                                 stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="9" cy="21" r="1"></circle>
+                                                <circle cx="20" cy="21" r="1"></circle>
+                                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                            </svg>
+                                            <svg class="tick" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24">
+                                                <path fill="none" d="M0 0h24v24H0V0z" />
+                                                <path fill="#ffffff"
+                                                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9.29 16.29L5.7 12.7c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L10 14.17l6.88-6.88c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-7.59 7.59c-.38.39-1.02.39-1.41 0z" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+    </section>
+    <script src="/js/site.js"</script>
+</body>
+
+</html>

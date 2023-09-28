@@ -1,0 +1,125 @@
+﻿@using System.Security.Claims;
+@using shoping.Models
+@model List<User>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameStore</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <section class="main">
+        <nav>
+            <i class="fa-solid fa-bars"></i>
+            <div class="logo"><img src="/img/GameLogo.jpg" alt=""></div>
+            <div class="media-search">
+                <input type="search" placeholder="Search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="items">
+                <div class="search">
+                    <input type="search" placeholder="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/Home/Index" class="ad">@User.FindFirst(ClaimTypes.Name).Value</a>
+                    <a href="/User/Logout" class="login">Logout</a>
+                    <a href="/User/Loglist" class="login">Log list</a>
+                    <a href="/User/Products/@User.FindFirst(ClaimTypes.Sid).Value" class="login">My Products</a>
+                    <a href="/Home/Unconfirmed" class="login">Unconfirmed</a>
+                    <a href="/Home/Basket" class="shop">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <div class="count">@ViewBag.say</div>
+                    </a>
+                }
+                else
+                {
+                    <a href="/User/Signup" class="sign">Sign up</a>
+                    <a href="/User/Login" class="login">Login</a>
+                }
+            </div>
+        </nav>
+        <div class="intro">
+        </div>
+        <div class="products products2">
+            <div class="special">
+                <div class="up"><b>Users Lists</b></div>
+            </div>
+            <div class="games">
+                <section class="loglist">
+                    <div class="userpanel">
+                        <div class="userpanel1">
+                            <img src="/img/image_processing20200203-26580-25pz1w (1).png" class="nicat" />
+                            <img src="/img/whitecolor.png" class="white" />
+                            <p class="all">All users</p>
+                            <div class="all2"><a href="/User/SignUp"><p>+</p> <p class="new">New user</p><i class="fa-solid fa-user"></i></a></div>
+                            <span class="before">
+                                <p>Show</p>
+                                <select name="" id="">
+                                    <option value="6">All</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <p>entries</p>
+                            </span>
+                            <div class="search1">
+                                <input type="search" placeholder="Search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                        </div>
+                        <div class="userpanel2">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Gmail</th>
+                                        <th>Password</th>
+                                        <th><p>Action</p></th>
+                                    </tr>
+                
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td><div class="check"><i class="fa-solid fa-check"></i></div><p></p></td>
+                                            <td>@item.UsersName</td>
+                                            <td>@item.UsersSurname</td>
+                                            <td>@item.UsersMail</td>
+                                            <td>@item.UsersPassword</td>
+                                            <td>
+                                                <a href="/User/LoglistRemove/@item.UsersId" class="remove2">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </section>
+    <script src="/js/site.js"</script>
+</body>
+
+</html>
+
+

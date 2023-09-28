@@ -1,0 +1,174 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using shoping.Models;
+@model Product;
+
+<html>
+<head>
+    <style>
+        @@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+        body {
+            background: #c0c0c0;
+            font-family: Raleway, sans-serif;
+            color: #666;
+        }
+
+        .login {
+            margin: 20px auto;
+            padding: 40px 50px;
+            max-width: 300px;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 1px 1px 1px #666;
+        }
+
+            .login input {
+                width: 100%;
+                display: block;
+                box-sizing: border-box;
+                margin: 10px 0;
+                padding: 14px 12px;
+                font-size: 16px;
+                border-radius: 2px;
+                font-family: Raleway, sans-serif;
+            }
+
+                .login input[type=text],
+                .login input[type=password] {
+                    border: 1px solid #c0c0c0;
+                    transition: .2s;
+                }
+
+                    .login input[type=text]:hover {
+                        border-color: #F44336;
+                        outline: none;
+                        transition: all .2s ease-in-out;
+                    }
+
+                .login input[type=submit] {
+                    border: none;
+                    background: #EF5350;
+                    color: white;
+                    font-weight: bold;
+                    transition: 0.2s;
+                    margin: 20px 0px;
+                }
+
+                    .login input[type=submit]:hover {
+                        background: #F44336;
+                    }
+
+            .login textarea {
+                width: 100%;
+                display: block;
+                box-sizing: border-box;
+                margin: 10px 0;
+                padding: 14px 12px;
+                font-size: 16px;
+                border-radius: 2px;
+                font-family: Raleway, sans-serif;
+            }
+
+                .login textarea[type=text],
+                .login textarea[type=password] {
+                    border: 1px solid #c0c0c0;
+                    transition: .2s;
+                }
+
+                    .login textarea[type=text]:hover {
+                        border-color: #F44336;
+                        outline: none;
+                        transition: all .2s ease-in-out;
+                    }
+
+                .login textarea[type=submit] {
+                    border: none;
+                    background: #EF5350;
+                    color: white;
+                    font-weight: bold;
+                    transition: 0.2s;
+                    margin: 20px 0px;
+                }
+
+                    .login textarea[type=submit]:hover {
+                        background: #F44336;
+                    }
+            .login h2 {
+                margin: 20px 0 0;
+                color: #EF5350;
+                font-size: 28px;
+            }
+
+            .login p {
+                margin-bottom: 40px;
+            }
+
+        .links {
+            display: table;
+            width: 100%;
+            box-sizing: border-box;
+            border-top: 1px solid #c0c0c0;
+            margin-bottom: 10px;
+        }
+
+            .links a {
+                display: table-cell;
+                padding-top: 10px;
+            }
+
+                .links a:first-child {
+                    text-align: left;
+                }
+
+                .links a:last-child {
+                    text-align: right;
+                }
+
+        .login h2,
+        .login p,
+        .login a {
+            text-align: center;
+        }
+
+        .login a {
+            text-decoration: none;
+            font-size: .8em;
+        }
+
+            .login a:visited {
+                color: inherit;
+            }
+
+            .login a:hover {
+                text-decoration: underline;
+            }
+
+        .login button {
+            font-family: Raleway, sans-serif;
+            color: white;
+            background-color: #F44336;
+            padding: 10px 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .login button:hover {
+                background-color: #EF5350;
+            }
+    </style>
+</head>
+<body>
+    <form class="login" asp-action="Add" asp-controller="Home" method="post" enctype="multipart/form-data">
+        <h2>Welcome, User!</h2>
+        <p>Please add your product</p>
+        <input type="file" accept=".png,.jpg" name="Sekil"/>
+        <input type="text" placeholder="Product Name" asp-for="ProductName"/>
+        <select asp-for="ProductCategoryId" asp-items="ViewBag.Category">
+            <option value="">Choose the method of lesson</option>
+        </select>
+        <input type="number" placeholder="Product Salary" asp-for="ProductSalary" />
+        <textarea placeholder="Description" rows="10" cols="40" asp-for="ProductDescription"></textarea>
+        <button>Add</button>
+    </form>
+</body>
+</html>

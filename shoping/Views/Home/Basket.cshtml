@@ -1,0 +1,119 @@
+﻿@using shoping.Models
+@model List<Basket>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/site.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="basket-main">
+
+    <div class="basket">
+        <div class="basket-left">
+            <p class="basket-cart"><b>Shopping Cart</b></p>
+            <div class="basket-scroll">
+                @{
+                    int? sum = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    sum += item.BasketProduct.ProductSalary * item.BasketCount;
+                    <div class="basket-products">
+                        <div class="basket-item">
+                            <div class="basket-img"><img src="/img/@item.BasketProduct.ProductImg" alt=""></div>
+                            <p>@item.BasketProduct.ProductName</p>
+                            <div class="basket-input">
+                                <a href="/Home/MinusBasket/@item.BasketId">-</a>
+                                <input type="text" value="@item.BasketCount">
+                                <a href="/Home/PlusBasket/@item.BasketId">+</a>
+                            </div>
+                            <p class="price1">$<p class="price2">@(item.BasketProduct.ProductSalary * item.BasketCount)</p></p>
+                            <a href="/Home/Delete/@item.BasketId" class="xmark">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="basket-end">
+                <a href="/Home/Index"><i class="fa-solid fa-arrow-left-long"></i>Continue Shopping</a>
+                <div class="total">Subtotal:<p>$ @sum</p></div>
+            </div>
+        </div>
+        <div class="basket-right">
+            <div class="card2">
+                <h1>Card Detail</h1>
+                <p class="type1">Card type</p>
+                <div class="card-type">
+                    <div class="visa">
+                        <img src="/img/visa.png" alt="">
+                        <div class="card-visa">
+                            <img src="/img/visa-gray.png" alt="">
+                            <div class="card-password">
+                                <p>****</p>
+                                <p>****</p>
+                                <p>****</p>
+                                <p>****</p>
+                            </div>
+                            <div class="card-info">
+                                <p>Nicat Quliyev</p>
+                                <p>05/26</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="master">
+                        <img src="/img/Master.jpg" alt="">
+                        <div class="card-master">
+                            <img src="/img/master-gray(2).png" alt="">
+                            <div class="card-password">
+                                <p>****</p>
+                                <p>****</p>
+                                <p>****</p>
+                                <p>****</p>
+                            </div>
+                            <div class="card-info">
+                                <p>Nicat Quliyev</p>
+                                <p>05/26</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="own">
+                    <p>Name own Card</p>
+                    <input type="text">
+                </div>
+                <div class="card-number">
+                    <p>Card number</p>
+                    <div class="pass">
+                        <input type="text">
+                        <input type="text">
+                        <input type="text">
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="last-date">
+                    <div class="date">
+                        <p>Expiration date</p>
+                        <input type="date">
+                    </div>
+                    <div class="cvv">
+                        <p>CVV</p>
+                        <input type="password">
+                    </div>
+                </div>
+                <button>Check Out</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/js/site.js"></script>
+</body>
+</html>
